@@ -5,19 +5,7 @@
     <?php if($i+1<count($breadcrumbs)) { ?><?php echo $breadcrumb['separator']; ?><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a><?php } ?>
     <?php } ?>
   </div>
-  <div class="category-img">
-   <?php if ($thumb) { ?>
-    <div class="image"><img src="<?php echo $thumb; ?>" alt="<?php echo $heading_title; ?>" /></div>
-    <?php } ?>
-	</div>
   <h1><?php echo $heading_title; ?></h1>
-  <?php if ($thumb || $description) { ?>
-    <?php if ($description) { ?>
-	<div class="category-info">
-    <?php echo $description; ?>
-	</div>
-    <?php } ?>
-  <?php } ?>
   <?php if ($products) { ?>
   <div class="product-filter">
     <div class="display"><?php echo $text_display; ?><i class="fa fa-list fa-lg"></i><a onclick="displaybutton('grid');"><i class="fa fa-th fa-lg"></i></a></div>
@@ -57,13 +45,7 @@
 	  </a></div>
       <?php } ?>
       <div class="name"><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a></div>
-      <div class="description">
-	  <?php if (!$product['description_mini']) { ?>
-		<?php echo $product['description']; ?>
-			<?php } else { ?>
-		<?php echo $product['description_mini']; ?>
-      <?php } ?>
-	  </div> 
+      <div class="description"><?php echo $product['description']; ?></div>
       <?php if ($product['price']) { ?>
       <div class="price">
         <?php if (!$product['special']) { ?>

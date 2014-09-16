@@ -55,23 +55,6 @@
         <?php } ?>
       </div>
       <?php } ?>
-      <?php if ($profiles): ?>
-      <div class="option">
-          <h2><span class="required">*</span><?php echo $text_payment_profile ?></h2>
-          <br />
-          <select name="profile_id">
-              <option value=""><?php echo $text_select; ?></option>
-              <?php foreach ($profiles as $profile): ?>
-              <option value="<?php echo $profile['profile_id'] ?>"><?php echo $profile['name'] ?></option>
-              <?php endforeach; ?>
-          </select>
-          <br />
-          <br />
-          <span id="profile-description"></span>
-          <br />
-          <br />
-      </div>
-      <?php endif; ?>
       <?php if ($options) { ?>
       <div class="options">
         <h2><?php echo $text_option; ?></h2>
@@ -258,22 +241,9 @@
     <?php if ($products) { ?>
     <a href="#tab-related"><?php echo $tab_related; ?> (<?php echo count($products); ?>)</a>
     <?php } ?>
-	<?php if ($products2) { ?>
-    <a href="#tab-related2"><?php echo $tab_related2; ?> (<?php echo count($products2); ?>)</a>
-    <?php } ?>
-	<?php if ($articles) { ?>
-    <a href="#tab-articles"><?php echo $tab_blog_related; ?> (<?php echo count($articles); ?>)</a>
-    <?php } ?>
   </div>
   <div id="tab-description" class="tab-content">
   <?php echo $description; ?>
-  <?php require_once(DIR_SYSTEM . 'library/user.php');
-  $this->registry->set('user', new User($this->registry));
-  if ($this->user->isLogged()) { $userLogged = true; } else { $userLogged = false;} if ($userLogged) { ?>
-  <div class="edit">
-  <a class="button" target="_blank" href="/admin/index.php?route=catalog/product/update&token=<?php echo $this->session->data['token']; ?>&product_id=<?php echo $product_id; ?>"><?php echo $button_edit_product; ?></a>
-  </div>
-  <?php } ?>
   </div>
   <?php if ($attribute_groups) { ?>
   <div id="tab-attribute" class="tab-content">
@@ -358,64 +328,6 @@
                 <?php } ?>
               </div>
         <a onclick="addToCart('<?php echo $product['product_id']; ?>');" class="button"><?php echo $button_cart; ?></a></div>
-      <?php } ?>
-    </div>
-  </div>
-  <?php } ?>
-  <?php if ($products2) { ?>
-  <div id="tab-related2" class="tab-content">
-    <div class="box-product">
-      <?php foreach ($products2 as $product) { ?>
-      <div>
-        <?php if ($product['thumb']) { ?>
-        <div class="image"><a href="<?php echo $product['href']; ?>"><img src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" /></a></div>
-        <?php } ?>
-        <div class="name"><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a></div>
-        <?php if ($product['price']) { ?>
-        <div class="price">
-          <?php if (!$product['special']) { ?>
-          <?php echo $product['price']; ?>
-          <?php } else { ?>
-          <span class="price-old"><?php echo $product['price']; ?></span> <span class="price-new"><?php echo $product['special']; ?></span>
-          <?php } ?>
-        </div>
-        <?php } ?>
-       <div class="rating">
-                <?php for ($i = 1; $i <= 5; $i++) { ?>
-                <?php if ($product['rating'] < $i) { ?>
-                <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-                <?php } else { ?>
-                <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                <?php } ?>
-                <?php } ?>
-              </div>
-        <a onclick="addToCart('<?php echo $product['product_id']; ?>');" class="button"><?php echo $button_cart; ?></a></div>
-      <?php } ?>
-    </div>
-  </div>
-  <?php } ?>
-  <?php if ($articles) { ?>
-  <div id="tab-articles" class="tab-content">
-    <div class="box-product box-article">
-      <?php foreach ($articles as $article) { ?>
-      <div>
-	  <div class="article-left">
-        <?php if ($article['thumb']) { ?>
-        <div class="image"><a href="<?php echo $article['href']; ?>"><img src="<?php echo $article['thumb']; ?>" alt="<?php echo $article['name']; ?>" /></a></div>
-        <?php } ?>
-		<div class="rating">
-                <?php for ($i = 1; $i <= 5; $i++) { ?>
-                <?php if ($article['rating'] < $i) { ?>
-                <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
-                <?php } else { ?>
-                <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
-                <?php } ?>
-                <?php } ?>
-              </div>
-		</div>
-        <div class="name"><a href="<?php echo $article['href']; ?>"><?php echo $article['name']; ?></a></div>
-		<div class="description-article"><?php echo $article['description']; ?> <a href="<?php echo $article['href']; ?>">...&raquo;</a></div>
-        </div>
       <?php } ?>
     </div>
   </div>

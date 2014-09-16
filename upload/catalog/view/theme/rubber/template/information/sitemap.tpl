@@ -55,28 +55,6 @@
         </li>
       </ul>
 	  <ul>
-	  <li><a href="<?php echo $blog; ?>"><i class="fa fa-book"></i> <?php echo $text_blog; ?></a>
-	  <ul>
-        <?php foreach ($newss as $news_1) { ?>
-        <li><a href="<?php echo $news_1['href']; ?>"><?php echo $news_1['name']; ?></a>
-          <?php if ($news_1['children']) { ?>
-          <ul>
-            <?php foreach ($news_1['children'] as $news_2) { ?>
-            <li><a href="<?php echo $news_2['href']; ?>"><?php echo $news_2['name']; ?></a>
-              <?php if ($news_2['children']) { ?>
-              <ul>
-                <?php foreach ($news_2['children'] as $news_3) { ?>
-                <li><a href="<?php echo $news_3['href']; ?>"><?php echo $news_3['name']; ?></a></li>
-                <?php } ?>
-              </ul>
-              <?php } ?>
-            </li>
-            <?php } ?>
-          </ul>
-          <?php } ?>
-        </li>
-        <?php } ?>
-      </ul>
 	  </li>
 	  </ul>
     </div>

@@ -1,31 +1,5 @@
 </div>
 <div id="container-footer">
-<div id="custom-footer-bg">
-<div id="custom-footer">
-<div class="footer-logo"><img src="<?php echo $logo; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" /></div>
-<div class="column-welcome">
-	<ul>
-		<li><?php echo $welcome; ?></li>
-	</ul>
-</div>
-<div class="column-contacts">
-	<ul>
-		<li><li><i class="fa fa-phone"></i> <?php echo $telephone; ?></li>
-		<?php if ($fax) { ?><li><i class="fa fa-phone"></i> <?php echo $fax; ?></li><?php } ?>
-		<li><i class="fa fa-envelope"></i> <?php echo $email; ?></li>
-		<li class="footer-address"><i class="fa fa-home"></i> <?php echo $address; ?></li>
-		<li class="footer-time"><i class="fa fa-clock-o fa-lg"></i></li>
-		<li><?php echo $time; ?></li>
-		<li><i class="fa fa-share"></i> <a href="<?php echo $contact; ?>"><?php echo $text_contact; ?></a></li>
-	</ul>
-</div>
-<div class="column-maps">
-	<ul>
-		<li><?php echo $maps; ?></li>
-	</ul>
-</div>
-</div>
-</div>
 <div id="footer">
   <?php if ($informations) { ?>
   <div class="column">
@@ -43,6 +17,7 @@
       <li><a href="<?php echo $return; ?>"><?php echo $text_return; ?></a></li>
 	  <li><a href="<?php echo $affiliate; ?>"><?php echo $text_affiliate; ?></a></li>
       <li><a href="<?php echo $sitemap; ?>"><?php echo $text_sitemap; ?></a></li>
+	  <li><a href="<?php echo $contact; ?>"><?php echo $text_contact; ?></a></li>
     </ul>
   </div>
   <div class="column">
@@ -51,7 +26,6 @@
       <li><a href="<?php echo $manufacturer; ?>"><?php echo $text_manufacturer; ?></a></li>
       <li><a href="<?php echo $voucher; ?>"><?php echo $text_voucher; ?></a></li>
       <li><a href="<?php echo $special; ?>"><?php echo $text_special; ?></a></li>
-	  <li><a href="<?php echo $latest; ?>"><?php echo $text_latest; ?></a></li>
     </ul>
   </div>
   <div class="column-last">
@@ -64,13 +38,13 @@
     </ul>
   </div>
   <hr>
-<div id="powered"><?php echo $powered; ?></div>
+<div id="powered"><?php echo $powered; ?><br /><?php echo $text_ocshop; ?></div>
 <div id="social">
-	   <a target="_blank" href="<?php echo $vk; ?>"><i class="fa fa-vk"></i></a>
-	   <a target="_blank" href="<?php echo $fb; ?>"><i class="fa fa-facebook"></i></a>
-	   <a target="_blank" href="<?php echo $googleplus; ?>"><i class="fa fa-google-plus"></i></a>
-	   <a target="_blank" href="<?php echo $youtube; ?>"><i class="fa fa-youtube"></i></a>
-	   <a target="_blank" href="<?php echo $twitter; ?>"><i class="fa fa-twitter"></i></a>
+	   <a target="_blank" href="http://vk.com/"><i class="fa fa-vk"></i></a>
+	   <a target="_blank" href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a>
+	   <a target="_blank" href="https://plus.google.com/"><i class="fa fa-google-plus"></i></a>
+	   <a target="_blank" href="http://www.youtube.com/"><i class="fa fa-youtube"></i></a>
+	   <a target="_blank" href="https://twitter.com/"><i class="fa fa-twitter"></i></a>
 </div>
 </div>
 </div>

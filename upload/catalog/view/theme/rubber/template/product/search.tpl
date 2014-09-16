@@ -10,26 +10,26 @@
   <div class="content">
     <p><?php echo $entry_search; ?>
       <?php if ($search) { ?>
-      <input type="text" name="search" value="<?php echo $search; ?>" />
+      <input type="text" name="search" size="50" value="<?php echo $search; ?>" />
       <?php } else { ?>
-      <input type="text" name="search" value="<?php echo $search; ?>" onclick="this.value = '';" onkeydown="this.style.color = '000000'" style="color: #999;" />
+      <input type="text" name="search" size="50" value="<?php echo $search; ?>" onclick="this.value = '';" onkeydown="this.style.color = '000000'" style="color: #999;" />
       <?php } ?>
-      <select name="category_id">
+      <select name="filter_category_id">
         <option value="0"><?php echo $text_category; ?></option>
         <?php foreach ($categories as $category_1) { ?>
-        <?php if ($category_1['category_id'] == $category_id) { ?>
+        <?php if ($category_1['category_id'] == $filter_category_id) { ?>
         <option value="<?php echo $category_1['category_id']; ?>" selected="selected"><?php echo $category_1['name']; ?></option>
         <?php } else { ?>
         <option value="<?php echo $category_1['category_id']; ?>"><?php echo $category_1['name']; ?></option>
         <?php } ?>
         <?php foreach ($category_1['children'] as $category_2) { ?>
-        <?php if ($category_2['category_id'] == $category_id) { ?>
+        <?php if ($category_2['category_id'] == $filter_category_id) { ?>
         <option value="<?php echo $category_2['category_id']; ?>" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $category_2['name']; ?></option>
         <?php } else { ?>
         <option value="<?php echo $category_2['category_id']; ?>">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $category_2['name']; ?></option>
         <?php } ?>
         <?php foreach ($category_2['children'] as $category_3) { ?>
-        <?php if ($category_3['category_id'] == $category_id) { ?>
+        <?php if ($category_3['category_id'] == $filter_category_id) { ?>
         <option value="<?php echo $category_3['category_id']; ?>" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $category_3['name']; ?></option>
         <?php } else { ?>
         <option value="<?php echo $category_3['category_id']; ?>">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $category_3['name']; ?></option>
@@ -53,7 +53,7 @@
     <label for="description"><?php echo $entry_description; ?></label>
   </div>
   <div class="buttons">
-    <div class="right"><input type="button" value="<?php echo $button_search; ?>" id="button-search" class="button" /></div>
+    <div class="center"><input type="button" value="<?php echo $button_search; ?>" id="button-search" class="button" /></div>
   </div>
   <h2><?php echo $text_search; ?></h2>
   <?php if ($products) { ?>
@@ -95,13 +95,7 @@
 	  </a></div>
       <?php } ?>
       <div class="name"><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a></div>
-      <div class="description">
-	  <?php if (!$product['description_mini']) { ?>
-		<?php echo $product['description']; ?>
-			<?php } else { ?>
-		<?php echo $product['description_mini']; ?>
-      <?php } ?>
-	  </div>
+     <div class="description"><?php echo $product['description']; ?></div>
       <?php if ($product['price']) { ?>
       <div class="price">
         <?php if (!$product['special']) { ?>

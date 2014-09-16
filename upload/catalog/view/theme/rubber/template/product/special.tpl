@@ -45,13 +45,7 @@
 	  </a></div>
       <?php } ?>
       <div class="name"><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a></div>
-      <div class="description">
-	  <?php if (!$product['description_mini']) { ?>
-		<?php echo $product['description']; ?>
-			<?php } else { ?>
-		<?php echo $product['description_mini']; ?>
-      <?php } ?>
-	  </div> 
+      <div class="description"><?php echo $product['description']; ?></div>
       <?php if ($product['price']) { ?>
       <div class="price">
         <?php if (!$product['special']) { ?>

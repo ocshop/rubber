@@ -4,9 +4,6 @@
 <meta charset="UTF-8" />
 <title><?php echo $title; ?></title>
 <base href="<?php echo $base; ?>" />
-<?php if ($robots) { ?>
-<meta name="robots" content="<?php echo $robots; ?>" />
-<?php } ?>
 <?php if ($description) { ?>
 <meta name="description" content="<?php echo $description; ?>" />
 <?php } ?>
@@ -29,7 +26,7 @@
 <link href="<?php echo $link['href']; ?>" rel="<?php echo $link['rel']; ?>" />
 <?php } ?>
 <link rel="stylesheet" type="text/css" href="catalog/view/theme/rubber/stylesheet/stylesheet.css" />
-<link rel="stylesheet" href="catalog/view/javascript/FortAwesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="catalog/view/javascript/FontAwesome/css/font-awesome.min.css">
 <?php foreach ($styles as $style) { ?>
 <link rel="<?php echo $style['rel']; ?>" type="text/css" href="<?php echo $style['href']; ?>" media="<?php echo $style['media']; ?>" />
 <?php } ?>
@@ -37,6 +34,7 @@
 <script type="text/javascript" src="catalog/view/javascript/jquery/ui/jquery-ui-1.8.16.custom.min.js"></script>
 <link rel="stylesheet" type="text/css" href="catalog/view/javascript/jquery/ui/themes/ui-lightness/jquery-ui-1.8.16.custom.css" />
 <script type="text/javascript" src="catalog/view/javascript/common.js"></script>
+<script type="text/javascript" src="catalog/view/javascript/jquery/jail/jail.min.js"></script>
 <?php foreach ($scripts as $script) { ?>
 <script type="text/javascript" src="<?php echo $script; ?>"></script>
 <?php } ?>
@@ -118,7 +116,6 @@ $('body').prepend('<iframe src="<?php echo $store; ?>" style="display: none;"></
       <?php } ?>
 	  <?php } ?>
     </li>
-	<?php if ($this->config->get('config_menu_brands')) { ?>
 	<li><a href="<?php echo $brands; ?>"><i class="fa fa-th"></i> <?php echo $text_brands; ?></a>
 	<div class="menu-top-manufacturers">
 	<ul>
@@ -131,22 +128,7 @@ $('body').prepend('<iframe src="<?php echo $store; ?>" style="display: none;"></
 	</ul>
 	</div>
 	</li>
-    <?php } ?>
-	<?php if ($this->config->get('config_menu_latest')) { ?>
-	<li><a href="<?php echo $latest; ?>"><i class="fa fa-tag"></i> <?php echo $text_latest; ?></a></li>
-	<?php } ?>
-	<?php if ($this->config->get('config_menu_special')) { ?>
-	<li><a href="<?php echo $special; ?>"><i class="fa fa-gavel"></i> <?php echo $text_special; ?></a></li>
-	<?php } ?>
-	<?php if ($this->config->get('config_blog_header_menu')) { ?>
-	<li><a href="<?php echo $blog; ?>"><i class="fa fa-book"></i> <?php echo $text_blog; ?></a></li>
-	<?php } ?>
   </ul>
 </div>
-<?php } ?>
-<?php if ($error) { ?>
-    
-    <div class="warning"><?php echo $error ?><img src="catalog/view/theme/rubber/image/close.png" alt="" class="close" /></div>
-    
 <?php } ?>
 <div id="notification"></div>
