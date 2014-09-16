@@ -29,6 +29,8 @@
 	   <?php } ?>
     </div>
   </div>
+  
+  <?php if ($download_status) { ?>
   <div class="blog-info">
   <?php if($downloads){ ?>
   <br />
@@ -38,6 +40,7 @@
   <br />
   <?php } ?> 
   </div>
+  <?php } ?>
   
   <?php if ($products) { ?>
    <div class="blog-related"><?php echo $tab_related_product; ?></div>
