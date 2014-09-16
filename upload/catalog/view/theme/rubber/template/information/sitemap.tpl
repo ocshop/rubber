@@ -55,6 +55,7 @@
         </li>
       </ul>
 	  <ul>
+	  <?php if ($newss) { ?>
 	  <li><a href="<?php echo $blog; ?>"><i class="fa fa-book"></i> <?php echo $text_blog; ?></a>
 	  <ul>
         <?php foreach ($newss as $news_1) { ?>
@@ -78,6 +79,7 @@
         <?php } ?>
       </ul>
 	  </li>
+	  <?php } ?>
 	  </ul>
     </div>
   </div>
