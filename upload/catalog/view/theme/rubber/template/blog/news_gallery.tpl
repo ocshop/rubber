@@ -72,11 +72,18 @@
   <span   <?php if (($sorts[3]['value'] == $sort . '-' . $order) or ($sorts[4]['value'] == $sort . '-' . $order)) { ?><?php  echo 'class="active"'; ?><?php } ?>><a href="<?php if ($sorts[3]['value'] == $sort . '-' . $order) echo $sorts[4]['href']; else echo $sorts[3]['href']; ?>"><?php echo $text_sort_date; ?></a></span>
   </li>
   <li>
+  <?php if ($review_status) { ?>
+  <li>
   <span   <?php if (($sorts[5]['value'] == $sort . '-' . $order) or ($sorts[6]['value'] == $sort . '-' . $order)) { ?><?php  echo 'class="active"'; ?><?php } ?>><a href="<?php if ($sorts[5]['value'] == $sort . '-' . $order) echo $sorts[6]['href']; else echo $sorts[5]['href']; ?>"><?php echo $text_sort_rated; ?></a></span>
   </li>
+  <?php } ?>
   <!-- ocshop popularity-->
   <li>
+  <?php if ($review_status) { ?>
   <span   <?php if (($sorts[7]['value'] == $sort . '-' . $order) or ($sorts[8]['value'] == $sort . '-' . $order)) { ?><?php  echo 'class="active"'; ?><?php } ?>><a href="<?php if ($sorts[7]['value'] == $sort . '-' . $order) echo $sorts[8]['href']; else echo $sorts[7]['href']; ?>"><?php echo $text_sort_viewed; ?></a></span>
+  <?php } else { ?>
+  <span   <?php if (($sorts[5]['value'] == $sort . '-' . $order) or ($sorts[6]['value'] == $sort . '-' . $order)) { ?><?php  echo 'class="active"'; ?><?php } ?>><a href="<?php if ($sorts[5]['value'] == $sort . '-' . $order) echo $sorts[6]['href']; else echo $sorts[5]['href']; ?>"><?php echo $text_sort_viewed; ?></a></span>
+  <?php } ?>
   </li>
   <!-- ocshop popularity-->
   </ul>
