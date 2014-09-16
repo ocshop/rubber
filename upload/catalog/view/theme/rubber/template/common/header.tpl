@@ -127,7 +127,7 @@ $('body').prepend('<iframe src="<?php echo $store; ?>" style="display: none;"></
 	<li class="menu-top top-manufacturers"><a href="<?php echo $manufacturers['href']; ?>"><?php echo $manufacturers['name']; ?></a></li>
 	<a href="<?php echo $manufacturers['href']; ?>"><img class="menu-image image-manufacturers" src="<?php echo $manufacturers['image']; ?>"></a>
 	</div>
-	<? } ?>
+	<?php } ?>
 	</ul>
 	</div>
 	</li>
