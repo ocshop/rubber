@@ -10,7 +10,7 @@ http://rubber.ocshop.net/
 
 ## Скачать OCSHOP.CMS.
 
-http://rubber.ocshop.net/
+http://ocshop.net/
 
 ## Блог.
 
