@@ -1,0 +1,91 @@
+.coolfilter-item ul { 
+	list-style:none; 
+	padding:0;
+}
+	
+.coolfilter-item ul li a {
+	font-weight:500;
+}
+
+.coolfilter-item b {
+	line-height:30px;
+}
+	
+.coolfilter_active { 
+	font-weight:bold !important; 
+}
+
+.coolfilter-item-select { 
+	margin:20px 0; 
+	position:relative; 
+}
+
+.coolfilter-item-select .coolfilter-item-select-head { 
+	height:22px; 
+	background:#F8F8F8; 
+	line-height:22px; 
+	text-indent:4px;  
+	border:1px solid #ccc;											  
+}
+
+.coolfilter-item-select .coolfilter-item-select-button { 
+	float:right; 
+	height:18px; 
+	width:17px; 
+	margin:2px; 
+	background:url(../image/coolfilter_select_button.png) no-repeat; 
+}
+												
+.coolfilter-item-select  .coolfilter-item-select-list { 
+	width:100%; 
+	top:23px; 
+	background:#F8F8F8; 
+	left:0;  
+	display:none; 
+	position:absolute;
+	z-index:99; 
+}
+											  
+.coolfilter-item-select ul { 
+	border:1px solid #ccc;  
+	margin:0; 
+	z-index:99;	
+}
+						
+.coolfilter-item-select ul li { 
+	display:block; 
+	padding:1px 4px;
+	z-index:99;	
+}
+						 
+.coolfilter-item-select ul li:hover { 
+	background:#ccc; 
+}
+
+.coolfilter-item-image-head {
+	font-weight:bold;
+	margin:0 0 15px 0;
+}
+
+.coolfilter-item-image img {
+	margin:2px;
+}
+						 
+.coolfilter-item-image .coolfilter_active img {
+	border:2px solid #ccc; margin:0;
+}
+
+.coolfilter-item-slider .coolfilter-item-slider-body {
+	margin:8px 0 18px 0;
+}
+
+.coolfilter-item-slider .slider-range { 
+	margin:0 8px 0 6px;
+}
+
+#coolfilter_apply_button {
+	margin-top:20px;
+}
+.coolfilter-item .ui-slider-range.ui-widget-header {
+	background: #229AC8;
+}

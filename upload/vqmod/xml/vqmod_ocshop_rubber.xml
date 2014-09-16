@@ -1,0 +1,46 @@
+<modification>
+	<id>Rubber For Ocshop</id>
+	<version>1.5.x</version>
+	<vqmver required="true">2.0.0</vqmver>
+	<author>www.ocshop.net</author>
+	<file name="catalog/controller/common/header.php">
+		
+		<operation error="log">
+			<search position="after"><![CDATA[
+			$this->load->model('setting/store');
+			]]></search>
+			<add><![CDATA[
+			//img menu
+			$this->load->model('tool/image');
+			//img menu
+			]]></add>
+		</operation>
+		
+		<operation error="log">
+			<search position="after"><![CDATA[
+			'name' => $manufacturer['name'],
+			]]></search>
+			<add><![CDATA[
+			//img menu
+			'image'   => $this->model_tool_image->resize(($manufacturer['image']=='' ? 'no_image.jpg' : $manufacturer['image']), 80, 80),
+			//img menu
+			]]></add>
+		</operation>
+		
+		<operation error="log">
+			<search position="after"><![CDATA[
+			'href'  => $this->url->link('product/category', 'path=' . $category['category_id'] . '_' . $child['category_id']),
+			]]></search>
+			<add><![CDATA[
+			//img menu
+			'image'   => $this->model_tool_image->resize(($child['image']=='' ? 'no_image.jpg' : $child['image']), 80, 80),
+			//img menu
+			]]></add>
+		</operation>
+	</file>
+
+</modification>
+
+
+	
+	

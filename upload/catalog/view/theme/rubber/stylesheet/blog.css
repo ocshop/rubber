@@ -1,0 +1,199 @@
+/*sort category*/
+.sort ul li, .limit  ul li {display: inline-block; color: #636E75; margin: 0 3px; font-size: 11px;}
+.sort ul li a, .limit  ul li a {color: #171717; font-size:12px;}
+.sort ul li a:hover, .limit  ul li a:hover {text-decoration: none;}
+.sort  ul li .active, .limit  ul li .active  {background: #CFDFEA; padding: 1px 4px; color: #171717;-webkit-border-radius: 2px 2px 2px 2px;-moz-border-radius: 2px 2px 2px 2px;-khtml-border-radius: 2px 2px 2px 2px;border-radius: 2px 2px 2px 2px;}
+.sort  ul li .active a, .limit  ul li .active  a{text-decoration: none;}
+.sort  ul  a {text-decoration: none;}
+.sort > ul, .limit > ul { margin: 0;}
+.product-filter .display {
+    padding-top: 1px;
+}
+.product-filter .sort,
+.product-filter .limit {
+    padding-top: 2px;
+}
+.product-list .brating,
+.product-list .added-viewed {
+    text-align: right;
+	overflow: hidden;
+}
+.product-list .button-more {
+	line-height: 12px;
+	margin-top: 10px;
+	padding: 2px 8px 5px;
+}
+.product-grid .brating,
+.product-grid .button-more,
+.product-grid .added-viewed {
+    display: none;
+}
+/*end sort category*/
+/*stok status*/
+.product-list .stock {
+	margin-top:15px;
+}
+.nalichie .stock_green,
+.product-list .stock .stock_green {
+    color: #007800;
+	margin-left: 2px;
+}
+.nalichie .stock_red,
+.product-list .stock .stock_red {
+    color: #FF0000;
+	margin-left: 2px;
+}
+.product-grid .stock {
+	display:none;
+}
+/*end stok status*/
+/* reviews */
+.product-list .reviews {
+    color: #171717;
+	margin-left: 2px;
+}
+.product-grid .reviews {
+	display:none;
+}
+.related-product-name {
+	background: #F5F9FC;
+    clear: both;
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    margin-top: 30px;
+    padding: 5px 5px 5px 15px;
+    width: 280px;
+	-webkit-border-radius: 3px 3px 3px 3px;
+	-moz-border-radius: 3px 3px 3px 3px;
+	-khtml-border-radius: 3px 3px 3px 3px;
+	border-radius: 3px 3px 3px 3px;
+}
+#related-product .box-product:hover,
+#related-product .box-product {
+	border: none;
+	padding: 0px;
+}
+#related-product .price {
+	font-size: 15px;
+}
+/* blog */
+.blog-content .wishlist .fa,
+.blog-content .compare .fa,
+.blog-info .fa {
+	font-size: 11px;
+    padding-right: 3px;
+}
+.blog-description p {
+   text-align: left;
+   font-size: 14px;
+}
+.blog-info .left {
+   margin-bottom: 20px;
+   overflow: auto;
+}
+.blog-right .review {
+  margin-bottom: 10px;
+  overflow: auto;
+}
+.blog-right .review > div {
+   float: left;
+}
+.blog-right > div .pluso {
+   float: right;
+   width: 180px;
+}
+.blog-info .colorbox {
+    float: left;
+    margin: 5px;
+    overflow: hidden;
+}
+.blog-info .image-additional img {
+    border: 1px solid #CFDFEA;
+	padding: 5px;
+}
+.blog-related {
+    border-bottom: 2px solid #CFDFEA;
+    color: #5184C3;
+    font-size: 18px;
+    margin-bottom: 20px;
+    padding-bottom: 5px;
+}
+.blog-content .box-product {
+	padding: 0 0 0 1px;
+}
+.blog-content .box-product > div {
+    border: 1px solid #DBDEE1;
+    float: left;
+    height: 285px;
+    margin-left: -1px;
+	margin-right: 0;
+    padding: 10px;
+    vertical-align: top;
+    width: 175px;
+}
+.blog-content .box-articles > div {
+	height: 220px;
+}
+.blog-content .box-product .name {
+	height: 30px;
+    overflow: hidden;
+}
+.blog-content .box-articles .name {
+	height: 45px;
+    overflow: hidden;
+}
+.blog-content .box-product .image {
+    text-align: center;
+}
+.blog-content .box-product .rating {
+	text-align: center;
+}
+.blog-content .box-product .image img {
+    border: none;
+    padding: 3px;
+}
+.blog-content .box-product .price {
+    float: left;
+}
+.blog-content .box-product .cart {
+    margin-bottom: 15px;
+    text-align: right;
+}
+.blog-content .box-product .wishlist {
+    float: left;
+}
+.blog-content .box-product .compare {
+    float: right;
+}
+.blog-content .box-product .wishlist, .blog-content .box-product .compare {
+    margin-bottom: 3px;
+    margin-top: 10px;
+}
+.blog-content .box-product .compare a,
+.blog-content .box-product .wishlist a {
+    color: #333333;
+    display: block;
+    text-decoration: none;
+}
+.visible {
+    display: none;
+}
+#rev {
+    margin-bottom: 20px;
+}
+#rev a {
+    color: #FFFFFF;
+	text-decoration: none;
+}
+#rev_add {
+   clear: right;
+   background: #F8F8F8;
+   border: 1px solid #CCCCCC;
+   padding: 10px 10px 40px;
+   margin-bottom: 20px;
+   -webkit-border-radius: 3px 3px 3px 3px;
+	-moz-border-radius: 3px 3px 3px 3px;
+	-khtml-border-radius: 3px 3px 3px 3px;
+	border-radius: 3px 3px 3px 3px;
+}
