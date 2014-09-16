@@ -1,7 +1,7 @@
 <div class="box">
    <?php if ($header) {?>
   <div class="box-heading"><?php echo $header; ?></div>
-  <?}?>
+  <?php } ?>
   <div class="box-content">
     <div class="box-product">
       <?php foreach ($reviews as $review) { ?>
@@ -23,7 +23,7 @@
           <?php } ?>
         </div>
 		<div class="author" style="text-align:right;margin-top:5px;"><strong><?php echo $review['author']?></strong></div>
-		<?}?>
+		<?php } ?>
         </div>
       <?php } ?>
     </div>

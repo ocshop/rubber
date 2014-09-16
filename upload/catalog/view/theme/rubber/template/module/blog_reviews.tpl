@@ -1,7 +1,7 @@
 <div class="box">
   <?php if ($header) {?>
   <div class="box-heading"><?php echo $header; ?></div>
-  <?}?>
+  <?php } ?>
   <div class="box-content">
     <div class="box-product">
       <?php foreach ($reviews as $review) { ?>
@@ -11,7 +11,7 @@
           <div class="image"><a href="<?php echo $review['articl_href']; ?>"><img src="<?php echo $review['articl_thumb']; ?>" alt="<?php echo $review['articl_name']; ?>" title="<?php echo $review['articl_name']; ?>"/></a></div>
           <?php } ?>
           <div class="name"><a href="<?php echo $review['articl_href']; ?>"><?php echo $review['articl_name']; ?></a></div>
-          <?}?>
+          <?php } ?>
         <div class="rating">
           <?php for ($i = 1; $i <= 5; $i++) { ?>
           <?php if ($review['article_id'] < $i) { ?>
