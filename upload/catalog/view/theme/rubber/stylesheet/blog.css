@@ -112,25 +112,8 @@
     border: 1px solid #CFDFEA;
 	padding: 5px;
 }
-.blog-related {
-    border-bottom: 2px solid #CFDFEA;
-    color: #5184C3;
-    font-size: 18px;
-    margin-bottom: 20px;
-    padding-bottom: 5px;
-}
-.blog-content .box-product {
-	padding: 0 0 0 1px;
-}
-.blog-content .box-product > div {
-    border: 1px solid #DBDEE1;
-    float: left;
-    height: 285px;
-    margin-left: -1px;
-	margin-right: 0;
-    padding: 10px;
-    vertical-align: top;
-    width: 175px;
+.box .box-content .box-product {
+	overflow: hidden;
 }
 .blog-content .box-articles > div {
 	height: 220px;
@@ -142,23 +125,6 @@
 .blog-content .box-articles .name {
 	height: 45px;
     overflow: hidden;
-}
-.blog-content .box-product .image {
-    text-align: center;
-}
-.blog-content .box-product .rating {
-	text-align: center;
-}
-.blog-content .box-product .image img {
-    border: none;
-    padding: 3px;
-}
-.blog-content .box-product .price {
-    float: left;
-}
-.blog-content .box-product .cart {
-    margin-bottom: 15px;
-    text-align: right;
 }
 .blog-content .box-product .wishlist {
     float: left;
