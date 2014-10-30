@@ -228,6 +228,45 @@
           <span class="links"><i class="fa fa-heart-o"></i> <a onclick="addToWishList('<?php echo $product_id; ?>');"><?php echo $button_wishlist; ?></a><br />
             <i class="fa fa-files-o"></i> <a onclick="addToCompare('<?php echo $product_id; ?>');"><?php echo $button_compare; ?></a></span>
         </div>
+		
+		<?php if ($benefits) { ?>
+		<div class="present">
+			<?php foreach ($benefits as $benefit) { ?>	
+				<?php if ($benefit['type'] == 0) { ?>
+					<div>
+						<?php if (!$benefit['link']) { ?>
+						   <span class="thumb"><img src="<?php echo $benefit['thumb']; ?>" alt="<?php echo $benefit['name']; ?>" /></span>
+						<?php } else { ?> 
+						   <a href="<?php echo $benefit['link']; ?>" target="_blank" title="<?php echo $benefit['name']; ?>"><span class="thumb"><img src="<?php echo $benefit['thumb']; ?>" alt="<?php echo $benefit['name']; ?>" /></span></a>
+						<?php } ?>
+					</div>
+				<?php } ?> 
+			<?php } ?>
+		</div>
+		<?php } ?>
+		
+		<?php if ($benefits) { ?>
+		<div class="benefits">
+		<div><?php echo $text_benefits; ?></div>
+		<ul class="benefit">
+		<?php foreach ($benefits as $benefit) { ?>	
+			<?php if ($benefit['type'] == 1) { ?>
+				<li>
+					<?php if (!$benefit['link']) { ?>
+					   <span class="thumb"><img src="<?php echo $benefit['thumb']; ?>" alt="<?php echo $benefit['name']; ?>" /></span>
+					<?php } else { ?> 
+					   <a href="<?php echo $benefit['link']; ?>" target="_blank" title="<?php echo $benefit['name']; ?>"><span class="thumb"><img src="<?php echo $benefit['thumb']; ?>" alt="<?php echo $benefit['name']; ?>" /></span></a>
+					<?php } ?>
+					<?php if ($benefit['description']) { ?>
+						<div class="benefit_description"><?php echo $benefit['description']; ?></div>
+					<?php } ?>
+				</li>
+			<?php } ?> 
+		<?php } ?>
+		</ul>
+		</div>
+		<?php } ?>
+		
         <?php if ($minimum > 1) { ?>
         <div class="minimum"><?php echo $text_minimum; ?></div>
         <?php } ?>

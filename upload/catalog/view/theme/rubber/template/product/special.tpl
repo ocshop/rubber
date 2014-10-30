@@ -77,6 +77,42 @@
                   <?php } ?>
                   <?php } ?>
 	  </div>
+	  
+	  <?php if ($product['benefits']) { ?>
+					<div class="benefit-text"><?php echo $text_benefits; ?></div>
+					<div class="benefits">
+					<ul class="benefit">
+					<?php foreach ($product['benefits'] as $benefit) { ?>	
+						<?php if ($benefit['type'] == 1) { ?>
+							<li>
+								<?php if (!$benefit['link']) { ?>
+								   <span class="thumb"><img src="<?php echo $benefit['thumb']; ?>" alt="<?php echo $benefit['name']; ?>" /></span>
+								<?php } else { ?> 
+								   <a href="<?php echo $benefit['link']; ?>" target="_blank" title="<?php echo $benefit['name']; ?>"><span class="thumb"><img src="<?php echo $benefit['thumb']; ?>" alt="<?php echo $benefit['name']; ?>" /></span></a>
+								<?php } ?>
+								<?php if ($benefit['description']) { ?>
+								<div class="benefit_description"><?php echo $benefit['description']; ?></div>
+								<?php } ?>
+							</li>
+						<?php } ?> 
+					<?php } ?>
+					</ul>
+					</div>
+					<div class="present">
+						<?php foreach ($product['benefits'] as $benefit) { ?>	
+							<?php if ($benefit['type'] == 0) { ?>
+								<div>
+									<?php if (!$benefit['link']) { ?>
+										<span class="thumb"><img src="<?php echo $benefit['thumb']; ?>" alt="<?php echo $benefit['name']; ?>" /></span>
+									<?php } else { ?> 
+										<a href="<?php echo $benefit['link']; ?>" target="_blank" title="<?php echo $benefit['name']; ?>"><span class="thumb"><img src="<?php echo $benefit['thumb']; ?>" alt="<?php echo $benefit['name']; ?>" /></span></a>
+									<?php } ?>
+								</div>
+							<?php } ?> 
+						<?php } ?>
+					</div>
+				<?php } ?>
+	  
     </div>
     <?php } ?>
   </div>
@@ -129,6 +165,23 @@ function display(view) {
 					
 			html += '  <div class="name">' + $(element).find('.name').html() + '</div>';
 			html += '  <div class="description">' + $(element).find('.description').html() + '</div>';
+			
+			//benefits
+			var benefit = $(element).find('.benefit').html();
+			
+			if (benefit != null) {
+				html += '<div class="benefit-text"><?php echo $text_benefits; ?></div>';
+				html += '  <div class="benefit">' + $(element).find('.benefit').html() + '</div>';
+			}
+			//benefits
+
+			//benefits present
+			var present = $(element).find('.present').html();
+			
+			if (present != null) {
+				html += '  <div class="present">' + $(element).find('.present').html() + '</div>';
+			}
+			//benefits present
 				
 			html += '</div>';
 						
@@ -157,6 +210,22 @@ function display(view) {
 			}
 			
 			html += '<div class="description">' + $(element).find('.description').html() + '</div>';
+			
+			//benefits
+			var benefit = $(element).find('.benefit').html();
+			
+			if (benefit != null) {
+				html += '<div class="benefit-text"><?php echo $text_benefits; ?></div>';
+				html += '  <div class="benefit">' + $(element).find('.benefit').html() + '</div>';
+			}
+			//benefits
+			//benefits present
+			var present = $(element).find('.present').html();
+			
+			if (present != null) {
+				html += '  <div class="present">' + $(element).find('.present').html() + '</div>';
+			}
+			//benefits present
 			
 			var price = $(element).find('.price').html();
 			

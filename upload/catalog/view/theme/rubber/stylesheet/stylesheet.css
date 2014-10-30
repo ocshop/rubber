@@ -848,9 +848,9 @@ a.button:hover, input.button:hover {
 	margin-right: auto;
 }
 .htabs {
+	clear: both;
 	height: 40px;
 	line-height: 16px;
-
 }
 .htabs a {
 	background: #2F363A;
@@ -1232,8 +1232,9 @@ ul.box-filter > li ul {
 	font-weight: bold;
 }
 .product-list > div {
-	overflow: auto;
+	overflow: visible;
 	margin-bottom: 15px;
+	min-height: 170px;
 }
 .product-list .right {
 	float: right;
@@ -1397,7 +1398,7 @@ ul.box-filter > li ul {
 }
 /* Product */
 .product-info {
-	overflow: auto;
+	overflow: visible;
 	margin-bottom: 20px;
 }
 .product-info > .left {
@@ -2259,4 +2260,79 @@ img {
 .box .box-product .image .corner_2 img,
 .box .box-product .image .corner_3 img {
 	width: 60%;
+}
+/*benefits*/
+.product-grid .benefit-text,
+.product-grid .benefit,
+.product-grid .present {
+	display: none;
+}
+.benefit {
+	list-style: none;
+	padding: 0px;
+	margin: 0px;
+}
+.product-list .benefit-text {
+	float: left;
+	line-height: 40px;
+	margin-right: 5px;
+}
+.benefit li {
+	border: 1px solid #eee;
+	display: inline-block;
+	height: 25px;
+	line-height: 25px;
+	margin: 2px;
+	padding: 4px;
+	position: relative;
+	width: 25px;
+}
+.benefit li span {
+	display: table-cell;
+	vertical-align: middle;
+}
+.benefit_description {
+	display: none;
+	position: absolute;
+	top: 41px;
+	z-index: 2;
+	border: 1px solid #38b0e3;
+	padding: 15px;
+	left: -75px;
+	border-radius: 4px;
+	background: white;
+	box-shadow: 0 0 8px grey;
+	width: 150px;
+	line-height: 13px;
+	font-size: 11px;
+}
+.benefit_description:after {
+	position: absolute;
+	width: 0px;
+	height: 0px;
+	border-left: 8px solid transparent;
+	border-right: 8px solid transparent;
+	border-bottom: 8px solid #fff;
+	top: -7px;
+	content: '';
+	left: 82px;
+}	
+.benefit_description:before {
+	position: absolute;
+	width: 0px;
+	height: 0px;
+	border-left: 8px solid transparent;
+	border-right: 8px solid transparent;
+	border-bottom: 8px solid #38b0e3;
+	top: -8px;
+	content: '';
+	left: 82px;
+}
+.benefit li:hover .benefit_description {
+	display: block;
+}	
+.product-info .present {
+	border-top: 1px solid #E7E7E7;
+	padding: 15px 5px 10px 5px;
+	margin-top: 10px;
 }

@@ -78,6 +78,53 @@
             <?php } ?>
           </tr>
       <?php } ?>
+	  <?php foreach ($products as $product) { ?>
+	  <?php if ($product['benefits']) { ?>
+		  <tr>
+		  <td><?php echo $text_benefits; ?></td>
+		  <?php foreach ($products as $product) { ?>
+		  <td><div class="benefits">
+					<ul class="benefit">
+					<?php foreach ($product['benefits'] as $benefit) { ?>	
+						<?php if ($benefit['type'] == 1) { ?>
+							<li>
+								<?php if (!$benefit['link']) { ?>
+								   <span class="thumb"><img src="<?php echo $benefit['thumb']; ?>" alt="<?php echo $benefit['name']; ?>" /></span>
+								<?php } else { ?> 
+								   <a href="<?php echo $benefit['link']; ?>" target="_blank" title="<?php echo $benefit['name']; ?>"><span class="thumb"><img src="<?php echo $benefit['thumb']; ?>" alt="<?php echo $benefit['name']; ?>" /></span></a>
+								<?php } ?>
+								<?php if ($benefit['description']) { ?>
+								<div class="benefit_description"><?php echo $benefit['description']; ?></div>
+								<?php } ?>
+							</li>
+						<?php } ?> 
+					<?php } ?>
+					</ul>
+					</div>
+		  </td>
+		  <?php } ?>
+		  </tr>
+		  <tr>
+				<td><?php echo $text_present; ?></td>
+				<?php foreach ($products as $product) { ?>
+					<td><div class="present">
+						<?php foreach ($product['benefits'] as $benefit) { ?>	
+							<?php if ($benefit['type'] == 0) { ?>
+								<div>
+									<?php if (!$benefit['link']) { ?>
+										<span class="thumb"><img src="<?php echo $benefit['thumb']; ?>" alt="<?php echo $benefit['name']; ?>" /></span>
+									<?php } else { ?> 
+										<a href="<?php echo $benefit['link']; ?>" target="_blank" title="<?php echo $benefit['name']; ?>"><span class="thumb"><img src="<?php echo $benefit['thumb']; ?>" alt="<?php echo $benefit['name']; ?>" /></span></a>
+									<?php } ?>
+								</div>
+							<?php } ?> 
+						<?php } ?>
+					</div>
+	    </td>
+		<?php } ?>
+		</tr>
+				<?php } ?>
+				<?php } ?>
 	  <tr>
         <td><?php echo $text_summary; ?></td>
         <?php foreach ($products as $product) { ?>
