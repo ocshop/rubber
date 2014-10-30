@@ -11,7 +11,7 @@
     <?php foreach ($reviews as $review) { ?>
     <div>
       <?php if ($review['prod_thumb']) { ?>
-      <div class="image"><a href="<?php echo $review['prod_href']; ?>"><img src="<?php echo $review['prod_thumb']; ?>" title="<?php echo $review['prod_name']; ?>" alt="<?php echo $review['prod_name']; ?>" /></a></div>
+      <div class="image"><?php echo $review['sticker']; ?><a href="<?php echo $review['prod_href']; ?>"><img src="<?php echo $review['prod_thumb']; ?>" title="<?php echo $review['prod_name']; ?>" alt="<?php echo $review['prod_name']; ?>" /></a></div>
       <?php } ?>
       <div class="name">
         <a href="<?php echo $review['prod_href']; ?>"><?php echo $review['prod_name']; ?></a>

@@ -87,7 +87,7 @@
     <?php foreach ($products as $product) { ?>
     <div>
       <?php if ($product['thumb']) { ?>
-      <div class="image"><a href="<?php echo $product['href']; ?>">
+      <div class="image"><?php echo $product['sticker']; ?><a href="<?php echo $product['href']; ?>">
 	  <img class="imagejail" data-src="<?php echo $product['thumb']; ?>" title="<?php echo $product['name']; ?>" alt="<?php echo $product['name']; ?>" />
 	  <noscript>
       <img src="<?php echo $product['thumb']; ?>" title="<?php echo $product['name']; ?>" alt="<?php echo $product['name']; ?>" />

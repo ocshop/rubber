@@ -28,7 +28,7 @@
         <td><?php echo $text_image; ?></td>
         <?php foreach ($products as $product) { ?>
         <td><?php if ($products[$product['product_id']]['thumb']) { ?>
-          <img src="<?php echo $products[$product['product_id']]['thumb']; ?>" alt="<?php echo $products[$product['product_id']]['name']; ?>" />
+          <div class="image"><?php echo $product['sticker']; ?><img src="<?php echo $products[$product['product_id']]['thumb']; ?>" alt="<?php echo $products[$product['product_id']]['name']; ?>" /></div>
           <?php } ?></td>
         <?php } ?>
       </tr>

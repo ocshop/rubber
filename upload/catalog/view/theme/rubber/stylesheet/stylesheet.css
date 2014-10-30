@@ -2218,3 +2218,45 @@ img {
 .testimonials #filter .button {
     float: right;
 }
+/*stiker*/
+.image {
+    position: relative;
+}
+.image .corner_0,
+.image .corner_1,
+.image .corner_2,
+.image .corner_3 {
+    height: 57px;
+	width: 58px;
+    position: absolute;
+    
+}
+.image .corner_0 {
+	left: 0px;
+    top: 0px;
+}
+.image .corner_1 {
+	right: 0px;
+    top: 0px;
+}
+.image .corner_2 {
+	left: 0px;
+    bottom: 0px;
+}
+.image .corner_3 {
+	right: 0px;
+    bottom: 0px;
+}
+.box-product .image .corner_0 img,
+.box-product .image .corner_1 img,
+.box-product .image .corner_2 img,
+.box-product .image .corner_3 img {
+	border: none;
+    padding: 0px;
+}
+.box .box-product .image .corner_0 img,
+.box .box-product .image .corner_1 img,
+.box .box-product .image .corner_2 img,
+.box .box-product .image .corner_3 img {
+	width: 60%;
+}
