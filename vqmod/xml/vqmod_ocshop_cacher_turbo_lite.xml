@@ -1,0 +1,130 @@
+<modification>
+	<id>Cacher Turbo Lite 1.0 For Ocshop</id>
+	<version>1.5.x</version>
+	<vqmver required="true">2.0.0</vqmver>
+	<author>www.ocshop.net</author>
+	<file name="system/library/cache.php">
+		<operation>
+			<search position="replace"><![CDATA[public function set($key, $value) {]]></search>
+			<add><![CDATA[public function set($key, $value, $expire = null, $gz_level = 0) {
+			
+			if (!$expire) $expire = $this->expire;
+			]]></add>
+		</operation>
+		
+		<operation>
+			<search position="replace"><![CDATA[$file = DIR_CACHE . 'cache.' . preg_replace('/[^A-Z0-9\._-]/i', '', $key) . '.' . (time() + $this->expire);]]></search>
+			
+			<add><![CDATA[$file = DIR_CACHE . 'cache.' . preg_replace('/[^A-Z0-9\._-]/i', '', $key) . '.' . (time() + $expire);]]></add>
+		</operation>
+
+		<operation>
+			<search position="replace"><![CDATA[$data = unserialize($cache);]]></search>
+			
+			<add><![CDATA[$data = @unserialize(@gzuncompress($cache));]]></add>
+			
+		</operation>
+		
+		<operation>
+			<search position="replace"><![CDATA[fwrite($handle, serialize($value));]]></search>
+			
+			<add><![CDATA[
+			
+			fwrite($handle, gzcompress(serialize($value), $gz_level));]]></add>
+			
+		</operation>
+
+	</file>	
+	
+	
+	<file name="catalog/controller/common/header.php">
+		
+	
+		<operation error="log">
+			<search position="before"><![CDATA[
+			$this->load->model('catalog/category');
+			]]></search>
+			<add><![CDATA[
+			$cacheconfig = $this->config->get('cache');
+			$active = 0;
+			if (isset ($parts[0])) {
+				$active =  $parts[0];
+			} 
+			$language_id = (int)$this->config->get('config_language_id');
+			$cache_data = array();
+			if ($cacheconfig['menu']['status']) {
+				if ($cacheconfig['menu']['status']) {
+					$cache_data  = $this->cache->get('menu');
+				};
+			}
+			
+			if (!empty($cache_data[$language_id][$active])) {
+				$this->data['categories'] = $cache_data[$language_id][$active];
+				} else { 
+			]]></add>
+		</operation>
+
+		<operation error="log">
+			<search position="before"><![CDATA[
+			$this->children = array(
+			]]></search>
+			<add><![CDATA[
+			if ($cacheconfig['menu']['status']) {
+			$cache_data[$language_id][$active] = $this->data['categories'];
+			$this->cache->set('menu', $cache_data, (int)$cacheconfig['menu']['lifetime'], (int)$this->config->get('gzip'));
+			}
+			
+		}
+
+			]]></add>
+		</operation>
+	</file>
+	
+	
+	<file name="catalog/controller/module/category.php">
+
+		
+		<operation error="log">
+			<search position="before"><![CDATA[
+			$this->load->model('catalog/category');
+			]]></search>
+			<add><![CDATA[
+			//cachemanager
+			$cacheconfig = $this->config->get('cache');
+			$language_id = (int)$this->config->get('config_language_id');
+			$cache_data = array();
+			
+			if ($cacheconfig['categorymodule']['status']) {
+				if ($cacheconfig['categorymodule']['status']) {
+					$cache_data  = $this->cache->get('module.categorymodule');
+				};
+			}
+									
+			if (!empty($cache_data[$language_id])) {
+				$this->data['categories'] = $cache_data[$language_id];
+				} else {			
+			//cachemanager						
+			]]></add>
+		</operation>
+
+		<operation error="log">
+			<search position="before"><![CDATA[
+			if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/module/category.tpl')) {
+			]]></search>
+			<add><![CDATA[
+			if ($cacheconfig['categorymodule']['status']) {
+			$cache_data[$language_id] = $this->data['categories'];
+			$this->cache->set('module.categorymodule', $cache_data, (int)$cacheconfig['categorymodule']['lifetime'], (int)$this->config->get('gzip'));
+			}
+		}
+
+			]]></add>
+		</operation>
+	</file>
+	
+
+</modification>
+
+
+	
+	
