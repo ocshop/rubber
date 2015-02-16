@@ -391,7 +391,7 @@ $(".revertq").live("click", function () {
 	
 $(".saveq").live("click", function () {
 	 
-	 var product_id = $(this).parent().parent().parent().find('input:checkbox').attr('value');
+	 var product_id = $(this).parent().parent().parent().parent().find('input:checkbox').attr('value');
 	 var quantity = $(this).parent().parent().find('input').val();
 	 $.post('index.php?route=catalog/product/quantity&token=<?php echo $token; ?>', 'quantity=' + quantity + '&product_id=' + product_id);
 	 $(this).parent().parent().find('.inlineEditq').text(quantity).show();
