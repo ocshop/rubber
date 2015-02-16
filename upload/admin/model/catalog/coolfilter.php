@@ -216,10 +216,11 @@ class ModelCatalogCoolfilter extends Model {
 
 
   public function showTable($table) {
-    if (mysql_num_rows(mysql_query("SHOW TABLES LIKE '" . DB_PREFIX . $table . "'"))) {
-      return TRUE;
+  $query = $this->db->query("SHOW TABLES LIKE '" . DB_PREFIX . $table . "'");
+      if ($query->num_rows) {
+		return TRUE;
     } else {
-      return FALSE;
+		return FALSE;
     }
   }
   // Install coolfilter tables

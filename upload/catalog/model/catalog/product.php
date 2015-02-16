@@ -108,16 +108,19 @@ class ModelCatalogProduct extends Model {
 			//standart filter
 			if ($coolfilter) {
 			
-		
-				
 			  foreach (explode(';', $coolfilter) as $option) {
 				$values = explode(':', $option);
+								
+				if ($values[0] == 'm' && preg_match('/^[\d\|]*$/', $values[1])) {
 				
-				
-				if ($values[0] == 'm' && preg_match('/^[\d\,]*$/', $values[1])) {
-					$sql_where_manufacteurs = ' AND p.manufacturer_id IN (' . $this->db->escape($values[1]) . ')';
+					$values[1] = explode("|", $values[1]);
+					$values[1] =  implode(",", $values[1]);
+					$sql_where_manufacteurs = ' AND p.manufacturer_id IN (' . $this->db->escape($values[1]) . ') ';
 				}
-				if (preg_match('/o_\d+/', $values[0]) && preg_match('/^[\d\,]*$/', $values[1])) {
+				if (preg_match('/o_\d+/', $values[0]) && preg_match('/^[\d\|]*$/', $values[1])) {
+						
+					$values[1] = str_replace('|', ',', $values[1]);
+					
 					$option_id = $this->db->escape($values[0]);
 					$sql_add_table_options .= ' LEFT JOIN ' . DB_PREFIX . 'product_option_value pov' . $option_id . ' ON (p.product_id = pov' . $option_id . '.product_id)';
 					
@@ -133,7 +136,7 @@ class ModelCatalogProduct extends Model {
 					$sql_add_table_attributes .= " LEFT JOIN " . DB_PREFIX . "product_attribute atr" . $attribute_id . " ON (p.product_id = atr" . $attribute_id . ".product_id)";
 					$get_id = explode("_", $values[0]);
 					
-					$values[1] = explode(",", $values[1]);
+					$values[1] = explode("|", $values[1]);
 					for ($i = 0; $i < count($values[1]); $i++) {
 						$values[1][$i] = $this->db->escape($values[1][$i]);
 					}
@@ -168,31 +171,32 @@ class ModelCatalogProduct extends Model {
 						$category_id = '';
 					}
 				
-					$sql_add_table_prices .= " LEFT JOIN (SELECT pr.product_id, pr.price, (SELECT pd2.price FROM `" . DB_PREFIX . "product_discount` pd2 WHERE pd2.product_id = pr.product_id AND pd2.customer_group_id = '" . $customer_group_id . "' AND pd2.quantity = '1' AND ((pd2.date_start = '0000-00-00' OR pd2.date_start < '" . $this->NOW . "') AND (pd2.date_end = '0000-00-00' OR pd2.date_end > '" . $this->NOW . "'))  ORDER BY pd2.priority ASC, pd2.price ASC LIMIT 1) discount, (SELECT ps.price FROM `" . DB_PREFIX . "product_special` ps WHERE ps.product_id = pr.product_id AND ps.customer_group_id = '" . $customer_group_id . "' AND ((ps.date_start = '0000-00-00' OR ps.date_start < '" . $this->NOW . "') AND (ps.date_end = '0000-00-00' OR ps.date_end > '" . $this->NOW . "')) ORDER BY ps.priority ASC, ps.price ASC LIMIT 1) special FROM `" . DB_PREFIX . "product` pr LEFT JOIN `" . DB_PREFIX . "product_to_category` ct ON (pr.product_id = ct.product_id) WHERE pr.status = '1'" . $category_id . ") tb ON (p.product_id = tb.product_id)";
+					$sql_add_table_prices .= " LEFT JOIN (SELECT pr.product_id, pr.price, (SELECT pd2.price FROM `" . DB_PREFIX . "product_discount` pd2 WHERE pd2.product_id = pr.product_id AND pd2.customer_group_id = '" . $customer_group_id . "' AND pd2.quantity = '1' AND ((pd2.date_start = '0000-00-00' OR pd2.date_start < NOW()) AND (pd2.date_end = '0000-00-00' OR pd2.date_end > NOW()))  ORDER BY pd2.priority ASC, pd2.price ASC LIMIT 1) discount, (SELECT ps.price FROM `" . DB_PREFIX . "product_special` ps WHERE ps.product_id = pr.product_id AND ps.customer_group_id = '" . $customer_group_id . "' AND ((ps.date_start = '0000-00-00' OR ps.date_start < NOW()) AND (ps.date_end = '0000-00-00' OR ps.date_end > NOW())) ORDER BY ps.priority ASC, ps.price ASC LIMIT 1) special FROM `" . DB_PREFIX . "product` pr LEFT JOIN `" . DB_PREFIX . "product_to_category` ct ON (pr.product_id = ct.product_id) WHERE pr.status = '1'" . $category_id . ") tb ON (p.product_id = tb.product_id)";
 					$sql_where_prices .= "AND tb.price >= '" . $values[1][0] . "' AND (tb.discount IS NULL OR tb.discount >= '" . $values[1][0] . "') AND (tb.special IS NULL OR tb.special >= '" . $values[1][0] . "') AND tb.price <= '" . $values[1][1] . "' AND (tb.discount IS NULL OR tb.discount <= '" . $values[1][1] . "') AND (tb.special IS NULL OR tb.special <= '" . $values[1][1] . "')";
 				}
 				//standart filter
-				if (preg_match('/p_\d+/', $values[0]) && preg_match('/^[\d\,]*$/', $values[1])) {
-
+					//if (preg_match('/p_\d+/', $values[0])) {
+			
+					if (preg_match('/p_\d+/', $values[0]) && preg_match('/^[\d\|]*$/', $values[1])) {
+					
+					
 					$parameter_id = $this->db->escape($values[0]);
 					
 					
 					$sql_add_table_parameters .= " LEFT JOIN " . DB_PREFIX . "product_filter par" . $parameter_id . " ON (p.product_id = par" . $parameter_id . ".product_id) LEFT JOIN  " . DB_PREFIX . "filter_description fd" . $parameter_id . "  ON (par" . $parameter_id . ".filter_id = fd" . $parameter_id . ".filter_id) ";
 					$get_id = explode("_", $values[0]);
 					
-					$values[1] = explode(",", $values[1]);
+					$values[1] = explode("|", $values[1]);
 					for ($i = 0; $i < count($values[1]); $i++) {
 						$values[1][$i] = $this->db->escape($values[1][$i]);
 						
 							
 					}
-					
+								
 					$values[1] = "'" . implode("','", $values[1]) . "'";
-										
+						
 					$sql_where_parameters .= " AND (fd" . $parameter_id . ".language_id = '" . (int)$this->config->get('config_language_id') . "' AND par" . $parameter_id . ".filter_id IN (" . $values[1] . "))";
-					
-					
-				}
+					}
 				//standart filter
 				}
 			  }
@@ -200,7 +204,7 @@ class ModelCatalogProduct extends Model {
 
 			// End coolfilter
 
-		$sql = "SELECT p.product_id, (SELECT AVG(rating) AS total FROM " . DB_PREFIX . "review r1 WHERE r1.product_id = p.product_id AND r1.status = '1' GROUP BY r1.product_id) AS rating, (SELECT price FROM " . DB_PREFIX . "product_discount pd2 WHERE pd2.product_id = p.product_id AND pd2.customer_group_id = '" . (int)$customer_group_id . "' AND pd2.quantity = '1' AND ((pd2.date_start = '0000-00-00' OR pd2.date_start < '" . $this->NOW . "') AND (pd2.date_end = '0000-00-00' OR pd2.date_end > '" . $this->NOW . "')) ORDER BY pd2.priority ASC, pd2.price ASC LIMIT 1) AS discount, (SELECT price FROM " . DB_PREFIX . "product_special ps WHERE ps.product_id = p.product_id AND ps.customer_group_id = '" . (int)$customer_group_id . "' AND ((ps.date_start = '0000-00-00' OR ps.date_start < '" . $this->NOW . "') AND (ps.date_end = '0000-00-00' OR ps.date_end > '" . $this->NOW . "')) ORDER BY ps.priority ASC, ps.price ASC LIMIT 1) AS special"; 
+		$sql = "SELECT p.product_id, (SELECT AVG(rating) AS total FROM " . DB_PREFIX . "review r1 WHERE r1.product_id = p.product_id AND r1.status = '1' GROUP BY r1.product_id) AS rating, (SELECT price FROM " . DB_PREFIX . "product_discount pd2 WHERE pd2.product_id = p.product_id AND pd2.customer_group_id = '" . (int)$customer_group_id . "' AND pd2.quantity = '1' AND ((pd2.date_start = '0000-00-00' OR pd2.date_start < NOW()) AND (pd2.date_end = '0000-00-00' OR pd2.date_end > NOW())) ORDER BY pd2.priority ASC, pd2.price ASC LIMIT 1) AS discount, (SELECT price FROM " . DB_PREFIX . "product_special ps WHERE ps.product_id = p.product_id AND ps.customer_group_id = '" . (int)$customer_group_id . "' AND ((ps.date_start = '0000-00-00' OR ps.date_start < NOW()) AND (ps.date_end = '0000-00-00' OR ps.date_end > NOW())) ORDER BY ps.priority ASC, ps.price ASC LIMIT 1) AS special"; 
 
 		if (!empty($data['filter_category_id'])) {
 			if (!empty($data['filter_sub_category'])) {
@@ -225,7 +229,7 @@ class ModelCatalogProduct extends Model {
 		$sql .= $sql_add_table_parameters;
 			// End coolfilter	
 
-		$sql .= " LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) LEFT JOIN " . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id) WHERE pd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND p.status = '1' AND p.date_available <= '" . $this->NOW . "' AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "'";
+		$sql .= " LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) LEFT JOIN " . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id) WHERE pd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND p.status = '1' AND p.date_available <= NOW() AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "'";
 
 		if (!empty($data['filter_category_id'])) {
 			if (!empty($data['filter_sub_category'])) {
@@ -999,27 +1003,37 @@ class ModelCatalogProduct extends Model {
 			$sql_where_parameters  = '';
 			//standart filter
 			
-			if ($coolfilter) {
-						
+				if ($coolfilter) {
+			
 			  foreach (explode(';', $coolfilter) as $option) {
 				$values = explode(':', $option);
+								
+				if ($values[0] == 'm' && preg_match('/^[\d\|]*$/', $values[1])) {
 				
-				
-				if ($values[0] == 'm' && preg_match('/^[\d\,]*$/', $values[1])) {
-					$sql_where_manufacteurs = ' AND p.manufacturer_id IN (' . $this->db->escape($values[1]) . ')';
+					$values[1] = explode("|", $values[1]);
+					$values[1] =  implode(",", $values[1]);
+					$sql_where_manufacteurs = ' AND p.manufacturer_id IN (' . $this->db->escape($values[1]) . ') ';
 				}
-				if (preg_match('/o_\d+/', $values[0]) && preg_match('/^[\d\,]*$/', $values[1])) {
+				if (preg_match('/o_\d+/', $values[0]) && preg_match('/^[\d\|]*$/', $values[1])) {
+						
+					$values[1] = str_replace('|', ',', $values[1]);
+					
 					$option_id = $this->db->escape($values[0]);
 					$sql_add_table_options .= ' LEFT JOIN ' . DB_PREFIX . 'product_option_value pov' . $option_id . ' ON (p.product_id = pov' . $option_id . '.product_id)';
-					$values[1] = preg_replace("/[^0-9\,]/", "", $values[1]);
+					
 					$sql_where_options .= ' AND pov' . $option_id . '.option_value_id IN (' . $this->db->escape($values[1]) .') AND (pov' . $option_id . '.subtract=0 OR pov' . $option_id . '.subtract=1 AND pov' . $option_id . '.quantity > 0)';
 				}
+				
+
 				if (preg_match('/a_\d+/', $values[0])) {
+				
+				
+				
 					$attribute_id = $this->db->escape($values[0]);
-					$sql_add_table_attributes .= ' LEFT JOIN ' . DB_PREFIX . 'product_attribute atr' . $attribute_id . ' ON (p.product_id = atr' . $attribute_id . '.product_id)';
+					$sql_add_table_attributes .= " LEFT JOIN " . DB_PREFIX . "product_attribute atr" . $attribute_id . " ON (p.product_id = atr" . $attribute_id . ".product_id)";
 					$get_id = explode("_", $values[0]);
 					
-					$values[1] = explode(",", $values[1]);
+					$values[1] = explode("|", $values[1]);
 					for ($i = 0; $i < count($values[1]); $i++) {
 						$values[1][$i] = $this->db->escape($values[1][$i]);
 					}
@@ -1028,27 +1042,24 @@ class ModelCatalogProduct extends Model {
 					
 					$sql_where_attributes .= " AND (atr" . $attribute_id . ".language_id = '" . (int)$this->config->get('config_language_id') . "' AND atr" . $attribute_id . ".attribute_id = '" . (int)$get_id[1] . "' AND atr" . $attribute_id . ".text IN (" . $values[1] . "))";
 				}
+				
 				if ($values[0] == 'p') {
-					
-					if (isset($values[1])) {
-					    $values[1] = explode(",", $values[1]);
-					}
-					
+			
+					$values[1] = explode(",", $values[1]);
 					if (!isset($values[1][0])) {
 						$values[1][0] = 0;
 					} else {
-						$values[1][0] = $values[1][0]/$currency_value;
-						
+						$values[1][0] /= $currency_value;
 					}
 					
 					if (!isset($values[1][1])) {
-						$values[1][1] = 9999999;
+						$values[1][1] = 9999999999;
 					} else {
-						$values[1][1] = $values[1][1]/$currency_value;
+						$values[1][1] /= $currency_value;
 					}
 					
 					for ($i = 0; $i < 2; $i++) {
-						$values[1][$i] = (float)$values[1][$i];
+						$values[1][$i] = $this->db->escape($values[1][$i]);
 					}
 					
 					if (!empty($data['coolfilter_category_id'])) {
@@ -1056,33 +1067,36 @@ class ModelCatalogProduct extends Model {
 					} else {
 						$category_id = '';
 					}
-					
-					$sql_add_table_prices .= " LEFT JOIN (SELECT pr.product_id, pr.price, (SELECT pd2.price FROM `" . DB_PREFIX . "product_discount` pd2 WHERE pd2.product_id = pr.product_id AND pd2.customer_group_id = '" . $customer_group_id . "' AND pd2.quantity = '1' AND ((pd2.date_start = '0000-00-00' OR pd2.date_start < '" . $this->NOW . "') AND (pd2.date_end = '0000-00-00' OR pd2.date_end > '" . $this->NOW . "'))  ORDER BY pd2.priority ASC, pd2.price ASC LIMIT 1) discount, (SELECT ps.price FROM `" . DB_PREFIX . "product_special` ps WHERE ps.product_id = pr.product_id AND ps.customer_group_id = '" . $customer_group_id . "' AND ((ps.date_start = '0000-00-00' OR ps.date_start < '" . $this->NOW . "') AND (ps.date_end = '0000-00-00' OR ps.date_end > '" . $this->NOW . "')) ORDER BY ps.priority ASC, ps.price ASC LIMIT 1) special FROM `" . DB_PREFIX . "product` pr LEFT JOIN `" . DB_PREFIX . "product_to_category` ct ON (pr.product_id = ct.product_id) WHERE pr.status = '1'" . $category_id . ") tb ON (p.product_id = tb.product_id)";
+				
+					$sql_add_table_prices .= " LEFT JOIN (SELECT pr.product_id, pr.price, (SELECT pd2.price FROM `" . DB_PREFIX . "product_discount` pd2 WHERE pd2.product_id = pr.product_id AND pd2.customer_group_id = '" . $customer_group_id . "' AND pd2.quantity = '1' AND ((pd2.date_start = '0000-00-00' OR pd2.date_start < NOW()) AND (pd2.date_end = '0000-00-00' OR pd2.date_end > NOW()))  ORDER BY pd2.priority ASC, pd2.price ASC LIMIT 1) discount, (SELECT ps.price FROM `" . DB_PREFIX . "product_special` ps WHERE ps.product_id = pr.product_id AND ps.customer_group_id = '" . $customer_group_id . "' AND ((ps.date_start = '0000-00-00' OR ps.date_start < NOW()) AND (ps.date_end = '0000-00-00' OR ps.date_end > NOW())) ORDER BY ps.priority ASC, ps.price ASC LIMIT 1) special FROM `" . DB_PREFIX . "product` pr LEFT JOIN `" . DB_PREFIX . "product_to_category` ct ON (pr.product_id = ct.product_id) WHERE pr.status = '1'" . $category_id . ") tb ON (p.product_id = tb.product_id)";
 					$sql_where_prices .= "AND tb.price >= '" . $values[1][0] . "' AND (tb.discount IS NULL OR tb.discount >= '" . $values[1][0] . "') AND (tb.special IS NULL OR tb.special >= '" . $values[1][0] . "') AND tb.price <= '" . $values[1][1] . "' AND (tb.discount IS NULL OR tb.discount <= '" . $values[1][1] . "') AND (tb.special IS NULL OR tb.special <= '" . $values[1][1] . "')";
 				}
-				
-				
 				//standart filter
-				
-					if (preg_match('/p_\d+/', $values[0]) && preg_match('/^[\d\,]*$/', $values[1])) {
+					//if (preg_match('/p_\d+/', $values[0])) {
+			
+					if (preg_match('/p_\d+/', $values[0]) && preg_match('/^[\d\|]*$/', $values[1])) {
+					
+					
 					$parameter_id = $this->db->escape($values[0]);
+					
 					
 					$sql_add_table_parameters .= " LEFT JOIN " . DB_PREFIX . "product_filter par" . $parameter_id . " ON (p.product_id = par" . $parameter_id . ".product_id) LEFT JOIN  " . DB_PREFIX . "filter_description fd" . $parameter_id . "  ON (par" . $parameter_id . ".filter_id = fd" . $parameter_id . ".filter_id) ";
 					$get_id = explode("_", $values[0]);
-														
-					$values[1] = explode(",", $values[1]);
+					
+					$values[1] = explode("|", $values[1]);
 					for ($i = 0; $i < count($values[1]); $i++) {
 						$values[1][$i] = $this->db->escape($values[1][$i]);
 						
 							
 					}
-					
+								
 					$values[1] = "'" . implode("','", $values[1]) . "'";
-										
-					$sql_where_parameters .= " AND (fd" . $parameter_id . ".language_id = '" . (int)$this->config->get('config_language_id') . "' AND par" . $parameter_id . ".filter_id IN (" . $values[1] . "))";// 
-					}			
+						
+					$sql_where_parameters .= " AND (fd" . $parameter_id . ".language_id = '" . (int)$this->config->get('config_language_id') . "' AND par" . $parameter_id . ".filter_id IN (" . $values[1] . "))";
+					}
+				//standart filter
 				}
-			} 
+			  }
 
 			// End coolfilter
 
@@ -1113,7 +1127,7 @@ class ModelCatalogProduct extends Model {
 		$sql .= $sql_add_table_parameters;
 		//standart filter		
 
-		$sql .= " LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) LEFT JOIN " . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id) WHERE pd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND p.status = '1' AND p.date_available <= '" . $this->NOW . "' AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "'";
+		$sql .= " LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) LEFT JOIN " . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id) WHERE pd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND p.status = '1' AND p.date_available <= NOW() AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "'";
 
 		if (!empty($data['filter_category_id'])) {
 			if (!empty($data['filter_sub_category'])) {

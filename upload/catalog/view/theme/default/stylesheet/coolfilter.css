@@ -1,14 +1,52 @@
+.coolfilter, .selecteditem {
+border: 1px solid #eee;
+padding: 0;
+border-top: none;
+border-radius: 3px;
+}
+.selecteditem  a {
+border-bottom: none !important;
+}
+#column-right .coolfilter .box-content, 
+#column-left .coolfilter .box-content {
+background: none;
+padding: 0;
+border: none;
+}
+
+.coolfilter .box-heading{
+font-size: 14px;
+margin: 0;
+padding: 0;
+}
+.coolfilter-item {
+border-top: 1px solid #eee;
+padding: 5px 10px 10px;
+}
 .coolfilter-item ul { 
 	list-style:none; 
 	padding:0;
 }
+
+ul > li{
+margin-left: 0px;
+}
 	
 .coolfilter-item ul li a {
 	font-weight:500;
+	text-decoration: none;
+	border-bottom: 1px dotted;
+}
+
+.coolfilter-item ul li  {
+	color: #8a8a8a;
 }
 
 .coolfilter-item b {
-	line-height:30px;
+line-height: 14px;
+font-weight: normal;
+margin: 5px 0 0px 0;
+display: block;
 }
 	
 .coolfilter_active { 
@@ -76,7 +114,7 @@
 }
 
 .coolfilter-item-slider .coolfilter-item-slider-body {
-	margin:8px 0 18px 0;
+	margin:4px 0 9px 0;
 }
 
 .coolfilter-item-slider .slider-range { 
@@ -86,3 +124,42 @@
 #coolfilter_apply_button {
 	margin-top:20px;
 }
+
+.coolfilter-selected {
+padding: 10px;
+margin: 0;
+}
+
+.disable:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255,255,255,0.4);   
+  content: "";
+  z-index: 1000;
+}
+
+.coolfilter-selected-group ul {
+margin: 3px 0;
+}
+
+
+.coolfilter-selected-group li {
+display: inline-block;
+padding: 2px 4px; 
+background: #F9EAA2;
+margin: 3px;
+box-shadow: 0 1px 1px #e7e7e7;
+}
+
+.coolfilter-selected-group li:hover {
+box-shadow: 0 1px 1px #aaa;
+} 
+
+.coolfilter-selected-group li a {
+color: black;
+text-decoration: none;
+}
+

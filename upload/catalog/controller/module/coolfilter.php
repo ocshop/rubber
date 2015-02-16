@@ -20,7 +20,13 @@ class ControllerModuleCoolfilter extends Controller {
 			$this->document->addStyle('catalog/view/theme/default/stylesheet/coolfilter.css');
 		}
 		
+		$this->document->addScript('catalog/view/javascript/jquery/ionrange/js/ion-rangeSlider/ion.rangeSlider.js');
+		$this->document->addStyle('catalog/view/javascript/jquery/ionrange/css/ion.rangeSlider.css');
+		$this->document->addStyle('catalog/view/javascript/jquery/ionrange/css/ion.rangeSlider.skinModern.css');
+		
+		
 		// Получить id группы фильтра
+		
 		$coolfilter_group_id = $setting['coolfilter_group_id'];
 		
 		// Получить id категории
@@ -128,10 +134,9 @@ class ControllerModuleCoolfilter extends Controller {
 		
 		if (isset($coolfilter_types['price'])) {
 			$price_data = $this->getDataForcoolfilter($coolfilter_types['price'], $categories_id_to_string, 'price');
-			
 			$price_data['price']['coolfilters'][0]['value'] = floor($this->currency->format($price_data['price']['coolfilters'][0]['value'], '', '', false));
 			$price_data['price']['coolfilters'][1]['value'] = ceil($this->currency->format($price_data['price']['coolfilters'][1]['value'], '', '', false));
-			
+		
 			$coolfilterItemNames += $price_data;
 			
 		}
@@ -200,15 +205,16 @@ class ControllerModuleCoolfilter extends Controller {
 				$image = $no_image;
 			}
 			
-				
-			$coolfilterItemNames[$index]['coolfilters'][] = array('name' => $item_name['name'],
-				'href'       => $data['href'],
-				'value'		 => $item_name['value'],
-				'key'		 => $option_key,
-				'active'     => $data['active'],
-				'count'      => $data['count'],
-				'view_count' => ($data['count'] != '') ? '(' . $data['count'] . ')' : '',
-				'image'      => $image );
+			if (($data['count'] > 0) || ($option_key == 'p') ){
+				$coolfilterItemNames[$index]['coolfilters'][] = array('name' => $item_name['name'],
+					'href'       => $data['href'],
+					'value'		 => $item_name['value'],
+					'key'		 => $option_key,
+					'active'     => $data['active'],
+					'count'      => $data['count'],
+					'view_count' => ($data['count'] != '') ? '(' . $data['count'] . ')' : '',
+					'image'      => $image );
+			};	
 		}
 	
 	
@@ -273,11 +279,17 @@ class ControllerModuleCoolfilter extends Controller {
 
 	// Получение уже существующих параметров фильтра
 	private function getcoolfilterURLParams($coolfilter = 0, $option_key, $option_value) {
-			
-	
+/*
+	if ($option_key == 'p') {
+		print_r('</br>');
+		print_r($coolfilter);
+		print_r('</br>');
+		print_r($option_value);
+	};
+	*/
 		$sep_par = ';'; // разделитель пар опций -> значений: opt1:val1,val2,val3;opt2:val1,val2,val3 ...
 		$sep_opt = ':'; // разделитель внутри пары опция -> значения: opt1:val1,val2,val3 ...
-		$sep_val = ','; // разделитель для параметров опции: val1,val2,val3 ...
+		$sep_val = '|'; // разделитель для параметров опции: val1,val2,val3 ...
 		$out = '';
 		
 		if ($coolfilter) {
@@ -309,11 +321,14 @@ class ControllerModuleCoolfilter extends Controller {
 				$options[] = $option_key . $sep_opt . $option_value;
 			}
 			$out = implode($sep_par, $options);
-
+			
 		}
 		else {
 			$out .= $option_key . $sep_opt . $option_value; 
+				
 		}
+	
+		$out = mb_convert_encoding($out, 'utf-8', mb_detect_encoding($out));
 
 		return $out;
 	}

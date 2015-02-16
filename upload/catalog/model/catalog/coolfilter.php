@@ -52,7 +52,7 @@ class ModelCatalogCoolfilter extends Model {
 		
 		if (!$cache_data && !is_array($cache_data)) {
 		
-			$query = $this->db->query("SELECT DISTINCT mnf.manufacturer_id as value, mnf.name, mnf.image FROM `" . DB_PREFIX . "manufacturer` mnf LEFT JOIN `" . DB_PREFIX . "product` as prd ON (mnf.manufacturer_id = prd.manufacturer_id) WHERE prd.product_id IN (SELECT product_id FROM `" . DB_PREFIX . "product_to_category` WHERE category_id IN (" . $this->db->escape($categories_id) . ")) ORDER BY mnf.name");
+			$query = $this->db->query("SELECT DISTINCT mnf.manufacturer_id as value, mnf.name, mnf.image FROM `" . DB_PREFIX . "manufacturer` mnf LEFT JOIN `" . DB_PREFIX . "product` as prd ON (mnf.manufacturer_id = prd.manufacturer_id) WHERE prd.product_id IN (SELECT product_id FROM `" . DB_PREFIX . "product_to_category` WHERE prd.status != '0' AND category_id IN (" . $this->db->escape($categories_id) . ")) ORDER BY mnf.name");
 			
 			$manufacters = $query->rows;
 			
@@ -70,10 +70,19 @@ class ModelCatalogCoolfilter extends Model {
 		
 		$categories_hash = md5($categories_id);
 		$cache_data = $this->cache->get('get_option_items_names.' . $coolfilter_options_id . '.' . $categories_hash . '.' . $this->config->get('config_language_id'));
-		
+		$cache_data = null;
 		if (!$cache_data && !is_array($cache_data)) {
 		
-			$query = $this->db->query("SELECT DISTINCT prd.option_value_id as value, prd.option_id as id, opt.name, opv.image FROM `" . DB_PREFIX . "product_option_value` prd LEFT JOIN `" . DB_PREFIX . "option_value_description` as opt ON (opt.option_value_id=prd.option_value_id AND opt.option_value_id=prd.option_value_id) LEFT JOIN `" . DB_PREFIX . "option_value` as opv ON (opv.option_value_id=prd.option_value_id) WHERE prd.option_id IN (" . $this->db->escape($coolfilter_options_id) . ") AND opt.language_id = '" . (int)$this->config->get('config_language_id') . "' AND prd.product_id IN (SELECT product_id FROM `" . DB_PREFIX . "product_to_category` WHERE category_id IN (" . $this->db->escape($categories_id) . ")) ORDER BY opt.name");
+			$query = $this->db->query("SELECT DISTINCT prd.option_value_id as value, prd.option_id as id, opt.name, opv.image 
+										FROM `" . DB_PREFIX . "product_option_value` prd LEFT JOIN `" . DB_PREFIX . "option_value_description` as opt ON (opt.option_value_id=prd.option_value_id 
+										AND opt.option_value_id=prd.option_value_id) 
+										LEFT JOIN `" . DB_PREFIX . "option_value` as opv ON (opv.option_value_id=prd.option_value_id) 
+										WHERE prd.option_id IN (" . $this->db->escape($coolfilter_options_id) . ") AND opt.language_id = '" . (int)$this->config->get('config_language_id') . "' 
+										AND prd.product_id IN (SELECT p2c.product_id 
+										FROM `" . DB_PREFIX . "product_to_category` p2c 
+										LEFT JOIN " . DB_PREFIX . "product p ON (p2c.product_id = p.product_id) 
+										WHERE p.status != 0 AND p2c.category_id IN (" . $this->db->escape($categories_id) . ")) 
+										ORDER BY opt.name");
 			
 			$options = $query->rows;
 			$this->cache->get('get_option_items_names.' . $coolfilter_options_id . '.' . $categories_hash . '.' . $this->config->get('config_language_id'), $options);
@@ -88,7 +97,12 @@ class ModelCatalogCoolfilter extends Model {
 	
 	 public function getAttributeItemNames($coolfilter_attributes_id, $categories_id) {
 			
-		$query = $this->db->query("SELECT DISTINCT text as value, attribute_id as id, text as name FROM `" . DB_PREFIX . "product_attribute` WHERE attribute_id IN (" . $this->db->escape($coolfilter_attributes_id) . ") AND language_id = '" . (int)$this->config->get('config_language_id') . "' AND product_id IN (SELECT product_id FROM `" . DB_PREFIX . "product_to_category` WHERE category_id IN (" . $this->db->escape($categories_id) . ")) ORDER BY text");
+		$query = $this->db->query("SELECT DISTINCT text as value, pa.attribute_id as id, text as name 
+									FROM `" . DB_PREFIX . "product_attribute` pa WHERE pa.attribute_id IN (" . $this->db->escape($coolfilter_attributes_id) . ") 
+									AND language_id = '" . (int)$this->config->get('config_language_id') . "' 
+									AND pa.product_id IN (SELECT p2c.product_id FROM `" . DB_PREFIX . "product_to_category` p2c 
+									LEFT JOIN " . DB_PREFIX . "product p ON (p2c.product_id = p.product_id) 
+									WHERE p.status != 0 AND category_id IN (" . $this->db->escape($categories_id) . ")) ORDER BY text=0, -text DESC, text");
 		
 		return $query->rows;
 	
