@@ -114,6 +114,8 @@ class ControllerProductCompare extends Controller {
 					}
 				}
 				
+				$stickers = null;
+				
 				$stickers = $this->getStickers($product_id) ;
 				
 				//ocshop benefits
