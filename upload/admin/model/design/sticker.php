@@ -68,29 +68,13 @@ class ModelDesignSticker extends Model {
 	}
 	
 	public function getStickersProduct($data = array()) {
-		if ($data) {
-			$sql = "SELECT * FROM " . DB_PREFIX . "sticker";
+
+		$sql = "SELECT * FROM " . DB_PREFIX . "sticker";
 			
-			$sort_data = array(
-				'name',
-			);					
-			
-			$query = $this->db->query($sql);
-		
-			return $query->rows;
-		} else {
-			$sticker_data = $this->cache->get('sticker');
-		
-			if (!$sticker_data) {
-				$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "sticker ORDER BY name");
+		$query = $this->db->query($sql);
 	
-				$sticker_data = $query->rows;
+		return $query->rows;
 			
-				$this->cache->set('sticker', $sticker_data);
-			}
-		 
-			return $sticker_data;
-		}
 	}
 
 	public function getProductSticker($product_id) {
