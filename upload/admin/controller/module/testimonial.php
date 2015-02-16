@@ -175,17 +175,5 @@ class ControllerModuleTestimonial extends Controller {
 			return FALSE;
 		}	
 	}
-
-
-	public function install() {
-		$this->load->model('catalog/testimonial');
-		$this->model_catalog_testimonial->createDatabaseTables();
-	}
-
-	public function uninstall() {
-
-		$this->load->model('catalog/testimonial');
-		$this->model_catalog_testimonial->dropDatabaseTables();
-	}
 }
 ?>
